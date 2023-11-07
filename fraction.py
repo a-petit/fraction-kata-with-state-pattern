@@ -14,6 +14,7 @@ class Fraction(ABC):
         if denominator < 0:
             numerator *= -1
             denominator *= -1
+
         d = gcd(numerator, denominator)
         numerator //= d
         denominator //= d
@@ -50,4 +51,4 @@ class _Infinity(Fraction):
 @dataclass(frozen=True)
 class _MinusInfinity(Fraction):
     def representation(self) -> str:
-        raise NotImplementedError
+        return "-inf"

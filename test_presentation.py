@@ -32,3 +32,7 @@ def test_fraction_presentation(numerator, denominator, representation):
 
 def test_presentation_of_inf():
     assert Fraction.infinity().representation() == "+inf"
+
+
+def test_presentation_of_minus_inf():
+    assert Fraction.minus_infinity().representation() == "-inf"
