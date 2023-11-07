@@ -9,7 +9,9 @@ class Fraction(ABC):
     @classmethod
     def of(cls, numerator, denominator):
         if numerator == 0:
-            return _Infinity() if denominator >= 0 else _MinusInfinity()
+            return _Zero()
+        if denominator == 0:
+            return _Infinity() if numerator >= 0 else _MinusInfinity()
 
         if denominator < 0:
             numerator *= -1
@@ -40,6 +42,13 @@ class RegularFraction(Fraction):
 
     _numerator: int
     _denominator: int
+
+
+@dataclass(frozen=True)
+class _Zero(Fraction):
+
+    def representation(self) -> str:
+        return "0"
 
 
 @dataclass(frozen=True)

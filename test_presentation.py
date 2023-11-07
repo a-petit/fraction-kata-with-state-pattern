@@ -8,11 +8,11 @@ def test_fraction_is_a_value_object():
 
 
 def test_fraction_with_positive_numerator_and_nul_denominator_is_infinity():
-    assert Fraction.of(0, 1) == Fraction.infinity()
+    assert Fraction.of(1, 0) == Fraction.infinity()
 
 
 def test_fraction_with_negative_numerator_and_nul_denominator_is_minus_infinity():
-    assert Fraction.of(0, -1) == Fraction.minus_infinity()
+    assert Fraction.of(-1, 0) == Fraction.minus_infinity()
 
 
 @pytest.mark.parametrize("numerator, denominator, representation", [
@@ -36,3 +36,7 @@ def test_presentation_of_inf():
 
 def test_presentation_of_minus_inf():
     assert Fraction.minus_infinity().representation() == "-inf"
+
+
+def test_presentation_of_zero():
+    assert Fraction.of(0, 1).representation() == "0"
