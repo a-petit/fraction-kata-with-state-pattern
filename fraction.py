@@ -23,6 +23,10 @@ class Fraction(ABC):
         return RegularFraction(numerator, denominator)
 
     @abstractmethod
+    def __add__(self, other):
+        pass
+
+    @abstractmethod
     def representation(self) -> str:
         pass
 
@@ -37,6 +41,12 @@ class Fraction(ABC):
 
 @dataclass(frozen=True)
 class RegularFraction(Fraction):
+    def __add__(self, other):
+        if isinstance(other, RegularFraction):
+            return Fraction.of(
+                self._numerator * other._denominator + other._numerator * self._denominator,
+                self._denominator * other._denominator)
+
     def representation(self) -> str:
         return f"{self._numerator}/{self._denominator}"
 
@@ -47,17 +57,26 @@ class RegularFraction(Fraction):
 @dataclass(frozen=True)
 class _Zero(Fraction):
 
+    def __add__(self, other):
+        raise NotImplementedError
+
     def representation(self) -> str:
         return "0"
 
 
 @dataclass(frozen=True)
 class _Infinity(Fraction):
+    def __add__(self, other):
+        raise NotImplementedError
+
     def representation(self) -> str:
         return "+inf"
 
 
 @dataclass(frozen=True)
 class _MinusInfinity(Fraction):
+    def __add__(self, other):
+        raise NotImplementedError
+
     def representation(self) -> str:
         return "-inf"

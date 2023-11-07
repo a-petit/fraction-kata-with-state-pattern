@@ -40,3 +40,8 @@ def test_presentation_of_minus_inf():
 
 def test_presentation_of_zero():
     assert Fraction.of(0, 1).representation() == "0"
+
+
+def test_addition_of_two_fractions():
+    assert Fraction.of(1, 4) + Fraction.of(1, 4) == Fraction.of(1, 2)
+    assert Fraction.of(1, 3) + Fraction.of(1, 7) == Fraction.of(7 + 3, 21)
