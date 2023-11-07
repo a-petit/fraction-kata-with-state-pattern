@@ -66,7 +66,7 @@ class RegularFraction(Fraction):
 class _Zero(Fraction):
 
     def __add__(self, other):
-        raise NotImplementedError
+        return other
 
     def representation(self) -> str:
         return "0"

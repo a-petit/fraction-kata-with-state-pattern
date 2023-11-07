@@ -63,3 +63,14 @@ def test_fraction_plus_minus_infinity_is_minus_infinity():
 def test_infinity_plus_minus_infinity_is_zero():
     assert Fraction.infinity() + Fraction.minus_infinity() == Fraction.zero()
     assert Fraction.minus_infinity() + Fraction.infinity() == Fraction.zero()
+
+
+def test_zero_plus_anything_is_anything():
+    assert Fraction.zero() + Fraction.zero() == Fraction.zero()
+    assert Fraction.zero() + Fraction.infinity() == Fraction.infinity()
+    assert Fraction.zero() + Fraction.minus_infinity() == Fraction.minus_infinity()
+    assert Fraction.zero() + Fraction.of(7, 17) == Fraction.of(7, 17)
+
+
+def test_fraction_plus_its_opposite_is_zero():
+    assert Fraction.of(3, 11) + Fraction.of(-3, 11) == Fraction.zero()
