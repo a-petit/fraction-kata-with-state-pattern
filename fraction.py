@@ -40,4 +40,4 @@ class RegularFraction(Fraction):
 @dataclass(frozen=True)
 class _Infinity(Fraction):
     def representation(self) -> str:
-        pass
+        return "+inf"
