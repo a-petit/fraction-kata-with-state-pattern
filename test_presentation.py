@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from math import gcd
 
 import pytest
 
@@ -13,6 +14,9 @@ class Fraction:
         if denominator < 0:
             numerator *= -1
             denominator *= -1
+        d = gcd(numerator, denominator)
+        numerator //= d
+        denominator //= d
         return Fraction(numerator, denominator)
 
     def representation(self) -> str:
@@ -27,6 +31,8 @@ class Fraction:
     (-1, 4, "-1/4"),
     (1, -4, "-1/4"),
     (-1, -4, "1/4"),
+    # Fractions simplifiées
+    (2, 4, "1/2"),
 ])
 def test_regular_fraction(numerator, denominator, representation):
     assert Fraction.of(numerator, denominator).representation() == representation
