@@ -1,26 +1,14 @@
-from dataclasses import dataclass
-from math import gcd
-
 import pytest
 
+from fraction import Fraction
 
-@dataclass(frozen=True)
-class Fraction:
-    _numerator: int
-    _denominator: int
 
-    @classmethod
-    def of(cls, numerator, denominator):
-        if denominator < 0:
-            numerator *= -1
-            denominator *= -1
-        d = gcd(numerator, denominator)
-        numerator //= d
-        denominator //= d
-        return Fraction(numerator, denominator)
+def test_fraction_is_a_value_object():
+    assert Fraction.of(1, 2) == Fraction.of(1, 2)
 
-    def representation(self) -> str:
-        return f"{self._numerator}/{self._denominator}"
+
+def test_fraction_with_positive_numerator_and_nul_denominator_is_infinity():
+    assert Fraction.of(0, 1) == Fraction.infinity()
 
 
 @pytest.mark.parametrize("numerator, denominator, representation", [
