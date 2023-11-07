@@ -38,6 +38,10 @@ class Fraction(ABC):
     def minus_infinity(cls):
         return _MinusInfinity()
 
+    @classmethod
+    def zero(cls) -> 'Fraction':
+        return _Zero()
+
 
 @dataclass(frozen=True)
 class RegularFraction(Fraction):
@@ -46,6 +50,10 @@ class RegularFraction(Fraction):
             return Fraction.of(
                 self._numerator * other._denominator + other._numerator * self._denominator,
                 self._denominator * other._denominator)
+        if isinstance(other, Fraction):
+            return other + self
+
+        raise Exception
 
     def representation(self) -> str:
         return f"{self._numerator}/{self._denominator}"
@@ -67,7 +75,12 @@ class _Zero(Fraction):
 @dataclass(frozen=True)
 class _Infinity(Fraction):
     def __add__(self, other):
-        raise NotImplementedError
+        if isinstance(other, _MinusInfinity):
+            return Fraction.zero()
+        if isinstance(other, Fraction):
+            return self
+
+        raise Exception
 
     def representation(self) -> str:
         return "+inf"
@@ -76,7 +89,12 @@ class _Infinity(Fraction):
 @dataclass(frozen=True)
 class _MinusInfinity(Fraction):
     def __add__(self, other):
-        raise NotImplementedError
+        if isinstance(other, _Infinity):
+            return Fraction.zero()
+        if isinstance(other, Fraction):
+            return self
+
+        raise Exception
 
     def representation(self) -> str:
         return "-inf"
