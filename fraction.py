@@ -9,7 +9,7 @@ class Fraction(ABC):
     @classmethod
     def of(cls, numerator, denominator):
         if numerator == 0:
-            return _Infinity()
+            return _Infinity() if denominator >= 0 else _MinusInfinity()
 
         if denominator < 0:
             numerator *= -1
@@ -27,6 +27,10 @@ class Fraction(ABC):
     def infinity(cls):
         return _Infinity()
 
+    @classmethod
+    def minus_infinity(cls):
+        return _MinusInfinity()
+
 
 @dataclass(frozen=True)
 class RegularFraction(Fraction):
@@ -41,3 +45,9 @@ class RegularFraction(Fraction):
 class _Infinity(Fraction):
     def representation(self) -> str:
         return "+inf"
+
+
+@dataclass(frozen=True)
+class _MinusInfinity(Fraction):
+    def representation(self) -> str:
+        raise NotImplementedError

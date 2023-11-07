@@ -11,6 +11,8 @@ def test_fraction_with_positive_numerator_and_nul_denominator_is_infinity():
     assert Fraction.of(0, 1) == Fraction.infinity()
 
 
+def test_fraction_with_negative_numerator_and_nul_denominator_is_minus_infinity():
+    assert Fraction.of(0, -1) == Fraction.minus_infinity()
 
 
 @pytest.mark.parametrize("numerator, denominator, representation", [
